@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: resume-screener-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./resume_screener.db
+      - key: ALLOWED_ORIGINS
+        # Comma-separated. Update with your real Vercel URL after first deploy,
+        # e.g. https://your-frontend.vercel.app — *.vercel.app is already
+        # allowed automatically by main.py, this is just an extra safety net.
+        value: http://localhost:5173,http://localhost:3000
+    healthCheckPath: /health
